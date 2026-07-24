@@ -31,10 +31,10 @@ jobs:
           cache: 'maven'
 
       - name: Make Maven wrapper executable
-        run: chmod +x mvnw
+        run: chmod +x ../mvnw
 
       - name: Build with Maven
-        run: ./mvnw -ntp verify # 프로젝트의 빌드·단위 테스트·통합 테스트를 모두 실행
+        run: ../mvnw -ntp verify # 프로젝트의 빌드·단위 테스트·통합 테스트를 모두 실행
 
       - if: ${{ github.ref == 'refs/heads/main' }}
         name: Login to Docker Hub
@@ -46,6 +46,7 @@ jobs:
       - if: ${{ github.ref == 'refs/heads/main' }}
         name: Build and Publish Docker Image
         run: |
-          ./mvnw spring-boot:build-image -DskipTests
+          # 💡 상위 폴더의 mvnw 사용 및 Docker Hub 이미지 이름 명시
+          ../mvnw spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=$DOCKER_IMAGE_NAME
           echo "Pushing the image $DOCKER_IMAGE_NAME to Docker Hub..."
           docker push $DOCKER_IMAGE_NAME
