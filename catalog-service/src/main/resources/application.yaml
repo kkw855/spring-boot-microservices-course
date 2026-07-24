@@ -7,6 +7,9 @@ management:
     web:
       exposure:
         include: '*' # 모든 Actuator 엔드포인트 웹 노출
+  info:
+    git:
+      mode: full
 
 spring:
   application:
