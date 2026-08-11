@@ -19,3 +19,6 @@ spring:
     # 프로퍼티(환경변수)가 존재하지 않을 때 기본값(Fallback)으로 postgres를 사용
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
+
+catalog:
+  page-size: 10
