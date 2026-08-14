@@ -1,0 +1,44 @@
+server:
+  port: 5012
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      base-path: /api/actuator
+      exposure:
+        include: '*' # 모든 Actuator 엔드포인트 웹 노출
+  info:
+    git:
+      mode: full
+  metrics:
+    tags:
+      application: "${spring.application.name}"
+  tracing:
+    export:
+      enabled: false
+    sampling:
+      probability: 1.0
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:25432/postgres}
+    # 프로퍼티(환경변수)가 존재하지 않을 때 기본값(Fallback)으로 postgres를 사용
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    open-in-view: false
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+orders:
+  order-events-exchange: orders-exchange
+  new-orders-queue: new-orders
+  delivered-orders-queue: delivered-orders
+  cancelled-orders-queue: cancelled-orders
+  error-orders-queue: error-orders
