@@ -6,8 +6,4 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @ConfigurationProperties(prefix = "catalog")
 public record ApplicationProperties(
-  @DefaultValue("10")
-  @Min(1)
-  int pageSize
-) {
-}
+        @DefaultValue("10") @Min(1) int pageSize) {}
