@@ -22,7 +22,7 @@
         <springdoc-openapi.version>3.0.3</springdoc-openapi.version>
         <spotless-maven-plugin.version>3.8.0</spotless-maven-plugin.version>
         <rest-assured.version>6.0.1</rest-assured.version>
-        <dockerImageName>sivaprasadreddy/bookstore-${project.artifactId}</dockerImageName>
+        <dockerImageName>kkw855/bookstore-${project.artifactId}</dockerImageName>
     </properties>
 
     <dependencies>
@@ -142,6 +142,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>${dockerImageName}</name>
+                        <builder>paketobuildpacks/builder-jammy-tiny</builder>
+                    </image>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
